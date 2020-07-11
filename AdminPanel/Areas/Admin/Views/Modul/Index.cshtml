@@ -1,0 +1,164 @@
+﻿@model List<tbl_Modul>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    string ara = Request.QueryString["Arama"];
+
+}
+
+
+
+<ul class="page-breadcrumb breadcrumb hidden-print">
+
+    <li>
+        <a href="@(Url.Action("Index","Home"))">Ana Sayfa</a>
+        <i class="fa fa-circle"></i>
+    </li>
+
+    <li>
+        <span><a href="@(Url.Action("Index","Arama"))">Modul</a> </span>
+    </li>
+</ul>
+
+<div class="col-md-12">
+    <form   id="aramafiltreform">
+    
+        <div class="row">
+           
+            <div class="col-md-12">
+                <div class="etiketAltKutu">
+                    <div class="input-group aramaBtn" style="position:relative; top:-3px; right:-3px;">
+
+                        <input type="text" class="form-control" placeholder="Ara" name="Arama" value="@ara">
+
+                        <span class="input-group-btn">
+
+                            <a href="javascript:;" class="btn submit" onclick="$('#aramafiltreform').submit();">
+                                <i class="icon-magnifier"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+             
+        </div>
+    </form>
+</div>
+
+
+
+<div class="col-md-12 aktiviteBox">
+
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="aktiveboxHeaderRenk"></div>
+            <div class="caption font-red-sunglo">
+                <i class="icon-settings"></i>
+                <span class="caption-subject bold uppercase">Modül Listesi </span>
+            </div>
+            <div class="actions">
+                <div class="btn-group">
+                    <a class="fa fa-plus-circle font-lg  ovalButton" href="@(Url.Action("Ekle","Modul",new {area="Admin" }))"  >
+                        Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="portlet-body">
+
+            <div class="table-scrollable">
+                <table class="table table-striped table-bordered table-advance table-hover listeTablo">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Adı
+                            </th>
+
+                            <th>
+                               Akif mi?
+                            </th>
+                            <th>
+                                Sira No
+                            </th>
+                            <th>
+                                Eklenme Tarihi
+                            </th>
+                            <th class="hidden-print">
+                                İşlem
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (tbl_Modul item in Model)
+                        {
+                    
+                            <tr>
+                               <td>
+                                   @item.ID
+                               </td>
+                                <td>
+                                    @item.Adi
+                                </td>
+
+                                <td>
+                                    <span>
+                                        @(item.isAktif?"Aktif":"Pasif")
+                                    </span>
+                                    @*@if(item.isAktif)
+                                    {
+                                        @("Aktif")
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @("Pasif")
+                                        </span>
+                                      
+                                    }*@
+                                </td>
+                                <td>
+                                    @item.SiraNo
+                                    
+                                </td>
+                                <td>
+                                    @item.EklenmeTarihi.ToString("dd MMM yyyy")
+                                </td>
+
+                                <td class="hidden-print ">
+                                    <a href="@(Url.Action("Ekle","Modul",new {Area="Admin",ID=item.ID }))"  class="btn btn-xs green hidden-xs" >Düzenle</a>
+                                    <a href="@(Url.Action("Sil","Modul",new {Area="Admin",ID=item.ID }))" class="btn btn-xs green hidden-xs">Sil</a>
+
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="dataTables_paginate paging_bootstrap_number hidden-print" id="sample_3_paginate">
+                    <ul class="pagination" style="visibility: visible;">
+                        @Html.Raw(ViewBag.Sayfalama)
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- END SAMPLE TABLE PORTLET-->
+</div>

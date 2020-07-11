@@ -1,0 +1,98 @@
+﻿@model tbl_Modul
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+<section>
+    <div class="row">
+        <div class="ekleModalBox">
+            <div class="portlet light bordered">
+                <div class="portlet-title baslikBgDesen">
+                    <div style="background-color:#ebc37a !important;  min-height:50px; opacity:0.4;border-radius:10px 10px 0px 0px!important;"></div>
+                    <div class="caption" style="position:absolute; top:0px;">
+                        <i class="icon-plus"></i>Modül @(Model.ID == 0 ? "Ekle" : "Düzenle")
+                    </div>
+                </div>
+                <div class="portlet-body form EkleForm AramaEkleEleman"  >
+                    <!-- BEGIN FORM-->
+                    <form method="post"   action="@Url.Action("Ekle","Modul",new {area="Yonetim" })">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="ID" value="@Model.ID" />
+
+                        <div class="form-body">
+
+                            <div class="alert alert-danger display-hide">
+                                <button class="close" data-close="alert"></button>Zorunlu alanları doldurunuz !
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label blockBaslik">Adı<span style='color:red'>*</span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="Adi" autocomplete="off" value="@Model.Adi" placeholder="Adını Gir">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label blockBaslik">Aktif Olsun mu<span style='color:red'>*</span></label>
+                                <div class="input-group">
+                                    <div class="icheck-inline">
+                                        <label>
+                                            <input type="radio" class="option-input radio" name="isAktif" value="true" @(Model.isAktif?"checked=checked":"") /> Evet
+                                        </label>
+                                        <label>
+                                            <input type="radio" class="option-input radio" value="false" name="isAktif" @(!Model.isAktif?"checked=checked":"")   /> Hayır
+                                        </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label blockBaslik">Limit<span style='color:red'>*</span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="Limit" autocomplete="off" value="@Model.Limit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label blockBaslik">Genişlik<span style='color:red'>*</span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="Genislik" autocomplete="off" value="@Model.Genislik"  >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label blockBaslik">Yükseklik<span style='color:red'>*</span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="Yukseklik" autocomplete="off" value="@Model.Yukseklik"  >
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label blockBaslik">Sira Numarası<span style='color:red'>*</span></label>
+                                <div class="input-icon right">
+                                    <i class="fa"></i>
+                                    <input type="text" class="form-control" name="SiraNo" autocomplete="off" value="@Model.SiraNo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions text-center">
+                            <button type="submit" class="btn duzenleBtn">Kaydet</button>
+                           
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+       
+
+
+            </div>
+        </div>
+    </div>
+</section>
